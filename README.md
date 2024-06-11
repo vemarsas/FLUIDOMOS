@@ -1,2 +1,2 @@
 # FLUIDOMOS
-Integrazione di DELIS nell'ambito del progetto europeo FLUIDOS
+Integrazione di DELIS in FLUIDOS nell'ambito del relativo progetto europeo
