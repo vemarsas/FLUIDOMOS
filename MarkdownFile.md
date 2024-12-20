@@ -2,8 +2,12 @@
 
 The final installation procedure was created with 4 nodes (2 masters and 2 Kubernetes workers) without using docker, on 2 Kubernetes clusters identified as follows:
 
-*   91.121.49.150, 10.255.0.131 **consumer1-fluidomos** (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64), with respective worker node: 10.255.0.132 **cworker1-fluidomos** (OS: Debian 12.6 – RAM: 16GB – 8 CPU – Disk: 15GB – Virtual machine amd64)
-*   10.255.36.163 **provider1-fluidomos** (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64), with respective worker node: 10.225.36.164 **pworker1-fluidomos** (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64)
+91.121.49.150, 10.255.0.131 **consumer1-fluidomos**  (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64)
+  - with respective worker node: 10.255.0.132 **cworker1-fluidomos** (OS: Debian 12.6 – RAM: 16GB – 8 CPU – Disk: 15GB – Virtual machine amd64)
+    
+10.255.36.163 **provider1-fluidomos** (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64)
+   - with respective worker node: 10.225.36.164 **pworker1-fluidomos**   
+   (OS: Debian 12.6 – RAM: 32GB – 8 CPU – Disk: 20GB – Virtual machine amd64)
 
 The basic products (helm, k3s, liqo) were installed on the master nodes ( **consumer1-fluidomos** and **provider1-fluidomos** ) and exclusively k3s on the worker nodes ( **cworker1-fluidomos** and **pworker1-fluidomos** ) in the sequences indicated below.
 
