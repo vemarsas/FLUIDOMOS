@@ -1,4 +1,4 @@
-**Fluids installation procedure definitive system**
+# FLUIDOMOS Setup, installation and user guide
 
 The final installation procedure was created with 4 nodes (2 masters and 2 Kubernetes workers) without using docker, on 2 Kubernetes clusters identified as follows:
 
@@ -9,8 +9,8 @@ The basic products (helm, k3s, liqo) were installed on the master nodes ( **cons
 
 ## Steps
 
-### Installing Helm (on both master nodes from root)
-
+### Installing Helm (on both Consumer and Provider master nodes from root)
+```bash
 apt-get update && apt-get install apt-transport-https gpg git curl unzip
 
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null
@@ -20,31 +20,31 @@ echo "deb \[arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm
 apt get update
 
 apt-get install helm
+```
+### Installi’ng K3s to version v1.24.17+k3s1 on master and worker
 
-### Installing K3s to version v1.24.17+k3s1 on master and worker
-
-About consumer1-fluidomos
-
+Create **consumer1-fluidomos** control-plane
+```bash
 curl -sfL https://get.k3s.io | K3S\_NODE\_NAME=consumer1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 sh -s - server --cluster-init
 
 cat /var/lib/rancher/k3s/server/node-token  
 K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcf4d5f4758::server:dc37106222de489c00e4457d73e94034
-
-About cworker1-fluidomos
-
+```
+Create **cworker1-fluidomos** worker node
+```bash
 curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.0.131:6443 K3S\_NODE\_NAME=cworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcf4d5f4758::server:dc37106222de489c00e4457d73e94034 sh -
-
-About provider1-fluidomos
-
+```
+Create **provider1-fluidomos** control-plane
+```bash
 curl -sfL https://get.k3s.io | K3S\_NODE\_NAME=provider1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 sh -s - server –cluster-init
 
 cat /var/lib/rancher/k3s/server/node-token  
 K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aad4780d17::server:b2c73c0e85cc48a8dafe8f8a226252f0
-
-About pworker1-fluidomos
-
+```
+Create **pworker1-fluidomos** worker node
+```bash
 curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.36.163:6443 K3S\_NODE\_NAME=pworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aad4780d17::server:b2c73c0e85cc48a8dafe8f8a226252f0 sh -
-
+```
 ### Installing liqoctl CLI for amd64 architecture on both masters
 
 cd /tmp
