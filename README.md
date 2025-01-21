@@ -20,3 +20,7 @@ There are two benefits achievable for the FLUIDOS ecosystem resulting from the i
     
 
 Regarding the first point, the result deriving from the migration of DELIS (implemented on a cloud architecture) to an architecture that uses the fluid computing continuum paradigm will emerge (FLUIDOMOS). The realization, testing, usage, and performance evaluation of FLUIDOMOS will constitute a validation test of the FLUIDOS platform and its features/functions/services from a use case that can contribute to demonstrating the benefits of using FLUIDOS.
+
+>In this repository you can find all the information and guides to  create the infrastructure of the FLUIDOMOS project, which uses 
+a K3S multi-cluster environment based on FLUIDOS and LIQO, as well as all the YAML distributions, will be used to implement DELIS execution in this environment.
+
