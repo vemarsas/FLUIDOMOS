@@ -1,4 +1,4 @@
-# FLUIDOMOS PROJECT OVERVIEW
+# FLUIDOMOS Project overview
 The **FLUIDOMOS** project aims to create a use case that extends the **DELIS V2.0** platform (conceived as a seamless, reconfigurable, and expandable home/building automation platform) to the **FLUIDOS** Computing Continuum environment.
 
 The current version of DELIS is a Cloud platform that provides to domotic system users (consumers, business, system integrators, and domotic system maintainers) an effective solution for:
