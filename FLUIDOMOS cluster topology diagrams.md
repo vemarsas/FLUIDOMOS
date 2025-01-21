@@ -18,6 +18,9 @@ ecp01-->p{liqo-fluidos-provider - FLUIDOS PEER VIRTUAL NODE}-->pcp
 pcp[provider1-fluidomos - Control Plane] --> pw01((pworker1-fluidomos))-->pVPS01(VPS)
 
 ```
+**Consumer Cluster is located in Strasburg on OVH Service Provider** 
+
+**Provider Cluster is located in Salerno on Farm of Vemar SASr** 
 
 ## Generic home building clusters topology diagram
 
