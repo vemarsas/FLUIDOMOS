@@ -20,7 +20,7 @@ pcp[provider1-fluidomos - Control Plane] --> pw01((pworker1-fluidomos))-->pVPS01
 ```
 **Consumer Cluster is located in Strasburg on OVH Service Provider** 
 
-**Provider Cluster is located in Salerno on Farm of Vemar SASr** 
+**Provider Cluster is located in Salerno on a farm of Vemar Sas**
 
 ## Clusters topology diagram for generic home building automation 
 
