@@ -1,0 +1,8 @@
+  # FLUIDOMOS namespace (cosumer e provider)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fluidomos-edge
+  labels:
+    name: fluidomos
+    layer: orchestration

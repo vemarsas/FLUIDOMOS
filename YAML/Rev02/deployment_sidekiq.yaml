@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidekiq
+  namespace: fluidomos-datacenter
+  labels:
+    app: sidekiq
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sidekiq
+  template:
+    metadata:
+      labels:
+        app: sidekiq
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - liqo-fluidos-provider
+                    - cworker1-fluidomos
+                    - consumer1-fluidomos
+      containers:
+      - name: sidekiq
+        image: registry.vemarsas.it/delis_sidekiq:0.3.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "350m"
+        ports:
+          - containerPort: 3000
+        env:
+          - name: RAILS_MASTER_KEY
+            value: "ca2be36e39528d5049122fd7fbb443ee"
+          - name: DELIS_DOMAIN
+            value: "fluidomosv2.vemarsas.it"
+          - name: POSTGRES_USER
+            value: "delis"
+          - name: POSTGRES_PASSWORD
+            value: "1234567890"
+          - name: POSTGRES_HOST
+            value: "10.255.0.130"
+          - name: POSTGRES_DATABASES
+            value: "(\"delis_wc\" \"delis_wc_historical\")"
+          - name: REDIS_HOST
+            value: "10.255.0.130"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_DB
+            value: "12"
+      imagePullSecrets:
+        - name: regcred

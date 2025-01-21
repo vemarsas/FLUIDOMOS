@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pydelis-shelly
+  namespace: fluidomos-datacenter
+  labels:
+    app: pydelis-shelly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pydelis-shelly
+  template:
+    metadata:
+      labels:
+        app: pydelis-shelly
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - cedge1-fluidomos
+      containers:
+      - name: pydelis-shelly
+        image: registry.vemarsas.it/pydelis_shelly:0.1.4
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+          - containerPort: 50003
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "pydelis"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "12345"
+          - name: MONGO_INITDB_DATABASE
+            value: "pydelis"
+          - name: PYDELIS_SECRET_KEY
+            value: "1375b612ac1fa53c19e0251d65946127"
+          - name: PYDELIS_API_KEY
+            value: "72acf39587f2ccc7226b5de421d27208"
+          - name: PYDELIS_DB
+            value: "pydelis"
+          - name: PYDELIS_HOST
+            value: "10.255.0.130"
+          - name: PYDELIS_PORT
+            value: "27017"
+          - name: PYDELIS_USERNAME
+            value: "pydelis"
+          - name: PYDELIS_PASSWORD
+            value: "12345"
+          - name: PYDELIS_DEBUG
+            value: "false"
+          - name: WAITRESS_THREADS
+            value: "8"
+          - name: WAITRESS_CONNECTION_LIMIT
+            value: "6000"
+          - name: WAITRESS_BACKLOG
+            value: "8192"
+          - name: WAITRESS_RECV_BYTES
+            value: "65536"
+          - name: WAITRESS_SEND_BYTES
+            value: "65536"
+          - name: WAITRESS_OUTBUF_OVERFLOW
+            value: "16777216"
+          - name: WAITRESS_OUTBUF_HIGH_WATERMARK
+            value: "134217728"
+          - name: WAITRESS_INBUF_OVERFLOW
+            value: "8388608"
+          - name: WAITRESS_CHANNEL_TIMEOUT
+            value: "180"
+          - name: WAITRESS_CLEANUP_INTERVAL
+            value: "30"
+      imagePullSecrets:
+        - name: regcred

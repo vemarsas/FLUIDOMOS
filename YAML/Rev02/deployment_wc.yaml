@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wc
+  namespace: fluidomos-datacenter
+  labels:
+    app: wc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wc
+  template:
+    metadata:
+      labels:
+        app: wc
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                    - liqo-fluidos-provider
+                    - cworker1-fluidomos
+                    - consumer1-fluidomos
+      containers:
+      - name: wc
+        image: registry.vemarsas.it/delis_wc:0.6.3
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "2000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "3000m"
+        ports:
+          - containerPort: 3000
+        env:
+          - name: RAILS_MASTER_KEY
+            value: "ca2be36e39528d5049122fd7fbb443ee"
+          - name: DELIS_DOMAIN
+            value: "fluidomosv2.vemarsas.it"
+          - name: POSTGRES_USER
+            value: "delis"
+          - name: POSTGRES_PASSWORD
+            value: "1234567890"
+          - name: POSTGRES_HOST
+            value: "10.255.0.130"
+          - name: POSTGRES_DATABASES
+            value: "(\"delis_wc\" \"delis_wc_historical\")"
+          - name: REDIS_HOST
+            value: "10.255.0.130"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_DB
+            value: "12"
+          - name: NOTIFY_SECONDS_INTERVAL
+            value: "0.5"
+      imagePullSecrets:
+        - name: regcred

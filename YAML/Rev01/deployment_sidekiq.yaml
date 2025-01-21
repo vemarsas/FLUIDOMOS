@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidekiq
+  labels:
+    app: sidekiq
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: sidekiq
+  template:
+    metadata:
+      labels:
+        app: sidekiq
+    spec:
+      containers:
+      - name: sidekiq
+        image: registry.vemarsas.it/delis_sidekiq:0.2.5
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "1000m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+        ports:
+          - containerPort: 3000
+        env:
+          - name: RAILS_MASTER_KEY
+            value: "ca2be36e39528d5049122fd7fbb443ee"
+          - name: DELIS_DOMAIN
+            value: "fluidomos.vemarsas.it"
+          - name: POSTGRES_USER
+            value: "delis"
+          - name: POSTGRES_PASSWORD
+            value: "1234567890"
+          - name: POSTGRES_HOST
+            value: "10.255.36.177"
+          - name: POSTGRES_DATABASES
+            value: "(\"delis_wc\" \"delis_wc_historical\")"
+          - name: REDIS_HOST
+            value: "10.255.36.177"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_DB
+            value: "12"
+      imagePullSecrets:
+        - name: regcred

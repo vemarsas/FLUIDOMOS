@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cable
+  labels:
+    app: cable
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cable
+  template:
+    metadata:
+      labels:
+        app: cable
+    spec:
+      containers:
+      - name: cable
+        image: registry.vemarsas.it/delis_websocket:0.1.5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 28080
+        env:
+          - name: RAILS_MASTER_KEY
+            value: "ca2be36e39528d5049122fd7fbb443ee"
+          - name: DELIS_DOMAIN
+            value: "fluidomos.vemarsas.it"
+          - name: POSTGRES_USER
+            value: "delis"
+          - name: POSTGRES_PASSWORD
+            value: "1234567890"
+          - name: POSTGRES_HOST
+            value: "10.255.36.177"
+          - name: POSTGRES_DATABASES
+            value: "(\"delis_wc\" \"delis_wc_historical\")"
+          - name: REDIS_HOST
+            value: "10.255.36.177"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_DB
+            value: "12"
+      imagePullSecrets:
+        - name: regcred

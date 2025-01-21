@@ -1,0 +1,6 @@
+kubectl create secret docker-registry regcred --namespace fluidomos-system --docker-server=registry.vemarsas.it --docker-username=adminuser --docker-password=adminuser --docker-email=monitoraggio@vemarsas.it
+
+
+kubectl create secret docker-registry regcred --namespace fluidomos-datacenter --docker-server=registry.vemarsas.it --docker-username=adminuser --docker-password=adminuser --docker-email=monitoraggio@vemarsas.it
+
+kubectl create secret docker-registry regcred --namespace fluidomos-edge --docker-server=registry.vemarsas.it --docker-username=adminuser --docker-password=adminuser --docker-email=monitoraggio@vemarsas.it

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pydelis-zway
+  labels:
+    app: pydelis-zway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pydelis-zway
+  template:
+    metadata:
+      labels:
+        app: pydelis-zway
+    spec:
+      containers:
+      - name: pydelis-zway
+        image: registry.vemarsas.it/pydelis_zway:0.1.6
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+          - containerPort: 50001
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "pydelis"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "12345"
+          - name: MONGO_INITDB_DATABASE
+            value: "pydelis"
+          - name: PYDELIS_SECRET_KEY
+            value: "851f853bed41ea4595a9a09274ee4e1f"
+          - name: PYDELIS_API_KEY
+            value: "4e2c4a376113603d600d6abf7208a870"
+          - name: PYDELIS_DB
+            value: "pydelis"
+          - name: PYDELIS_HOST
+            value: "10.255.36.177"
+          - name: PYDELIS_PORT
+            value: "27017"
+          - name: PYDELIS_USERNAME
+            value: "pydelis"
+          - name: PYDELIS_PASSWORD
+            value: "12345"
+          - name: PYDELIS_DEBUG
+            value: "false"
+      imagePullSecrets:
+        - name: regcred
