@@ -32,9 +32,10 @@ We start by representing the current DELIS system architecture followed by the n
 
 In the current section, we show a diagram to give a brief representation of DELIS architecture followed by a simple description of the DELIS system and its main software components:
 
-![][image1]
-
-The current DELIS architecture 
+<p align="center">
+    <img src="https://github.com/vemarsas/FLUIDOMOS/blob/main/resources/delis_architecture.png"><br>
+    The current DELIS architecture 
+<p>
 
 Briefly, DELIS is a Cloud Platform designed to build, manage, and maintain domotic systems. In this scenario, it offers a web dashboard to execute all the commonly used actions for configuring domotic devices to be managed, acting on them, monitoring the state, and so on.
 
@@ -62,9 +63,10 @@ The new FLUIDOMOS architecture, which is derived from the previous regarding DEL
 * It redesigns the execution environment in terms of Kubernetes clusters,  powered by FLUIDOS and LIQO  
 * It organizes the hardware equipment under new boundaries views focused on the physical  location of the domotic units and buildings
 
-![][image2]
-
-The new FLUIDOMOS architecture
+<p align="center">
+    <img src="https://github.com/vemarsas/FLUIDOMOS/blob/main/resources/delis_architecture.png"><br>
+    The new FLUIDOMOS architecture
+<p>
 
 The architecture diagram can be evaluated from three separate points of view, identifying three different boundaries: Hardware, Services, and the Fluidos Computing Continuum. Each boundary represents an isolated level involving different technologies and skills. 
 
