@@ -64,7 +64,7 @@ The new FLUIDOMOS architecture, which is derived from the previous regarding DEL
 * It organizes the hardware equipment under new boundaries views focused on the physical  location of the domotic units and buildings
 
 <p align="center">
-    <img src="https://github.com/vemarsas/FLUIDOMOS/blob/main/resources/delis_architecture.png"><br>
+    <img src="https://github.com/vemarsas/FLUIDOMOS/blob/main/resources/fluidomos_architecture.jpg"><br>
     The new FLUIDOMOS architecture
 <p>
 
