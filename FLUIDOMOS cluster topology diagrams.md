@@ -2,7 +2,7 @@
 
 
 
-## FLUIDOMOS current use case clusters topology diagram for Vemar Home building
+## FLUIDOMOS clusters topology diagram - Use Case for Vemar building automation
 
 ```mermaid
 graph LR
@@ -22,10 +22,10 @@ pcp[provider1-fluidomos - Control Plane] --> pw01((pworker1-fluidomos))-->pVPS01
 
 **Provider Cluster is located in Salerno on Farm of Vemar SASr** 
 
-## Generic home building clusters topology diagram
+## Clusters topology diagram for generic home building automation 
 
 
-
+ 
 ```mermaid
 graph LR
 ecp01[Edge Cluseter - Control Plane] --> ecp01w01((Edge-Worker-Node-01))--> ecp01w01d01(Edge-01)--> ecp01w01d01s01{Sensors Set-01}
