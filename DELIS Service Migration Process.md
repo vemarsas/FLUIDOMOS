@@ -9,25 +9,27 @@ The main steps of the migration process are the following:
 3. Migrating to Kubernetes  
 4. Vemar Sas  repository 
 
-1. # **Build Docker  Image** 
+## 1  **Build Docker  Image** 
 
 A **Dockerfile** will be used, which is a text file containing the necessary instructions to create the Docker image.
 
-1. ## **Preparing the environment**
+### 1.1  **Preparing the environment**
 
 Ensure that Docker is installed on the machine. Follow the specific installation instructions depending on the operating system. To check if Docker is installed, open a terminal and type:  
+```bash
 docker \--version
-
-2. ## **Organizing the application files**
+```
+### 1.2  **Organizing the application files**
 
 Create a well-structured directory architecture for the application.
 
-3. ## **Creating the Dockerfile**
+### 1.3  **Creating the Dockerfile**
 
 The Dockerfile describes how to create the application’s image. Below is a basic example for different types of Python applications: 
 
 1. Create the Dockerfile in the root directory of the project.   
-2. Write the following instructions:  
+2. Write the following instructions:
+```bash
    \# Use an official Python base image  
    FROM python:3.9  
      
@@ -49,7 +51,7 @@ The Dockerfile describes how to create the application’s image. Below is a bas
    \# Command to start the application
 
    CMD \["python", "app.py"\]
-
+```
 For other platforms or languages: The Dockerfile varies depending on the language and framework used. Generally, the logic is:
 
 * Choose a base image (e.g., Java, PHP, Go).  
@@ -58,52 +60,61 @@ For other platforms or languages: The Dockerfile varies depending on the languag
 * Expose the necessary ports.  
 * Define the startup command.
 
-4. ## **Creating the .dockerignore file (optional)**
+### 1.4 **Creating the .dockerignore file (optional)**
 
 The **.dockerignore** file works similarly to **.gitignore**, excluding certain files or directories from the Docker build process. Create a **.dockerignore** file in the root directory of the project and add lines like:  
+```bash
 node\_modules  
 \*.log  
 .git  
 .env
+```
 
-5. ## **Building the Docker image**
+### 1.5 **Building the Docker image**
 
 When the Dockerfile is ready, it is possible to build the image. Open a terminal in the main application directory and run the command:  
+```bash
 docker build \-t your-app-name .
-
+```
 Explanation:
 
 * **\-t your-app-name**: Specifies the name of the image.  
 * **.**: Indicates that Docker should use the Dockerfile and the build context in the current directory.
 
-6. ## **Running the container**
+### 1.6 **Running the container**
 
-After creating the image,  run a container based on that image with the following command:  
+After creating the image,  run a container based on that image with the following command:
+```bash
 docker run \-p 3000:3000 your-app-name
+```
 
 Explanation:
 
 * **\-p 3000:3000**: Maps the container’s port 3000 to port 3000 of the host system (adjust the numbers according to the application).  
 * **your-app-name**: The name of the Docker image.
 
-7. ## **Verify the application is running**
+### 1.7  **Verify the application is running**
 
-Open a browser and navigate to [**http://localhost:3000**](http://localhost:3000) (or the exposed port). The application should be running.
+Open a browser and navigate to: 
 
-8. ## **Publishing the image to Docker Hub (optional)**
+http://localhost:3000 (or the exposed port). 
 
-To make the image available to others, it can be uploaded to Docker Hub. Log in from the terminal using the command:  
+The application should be running.
+
+### 1.8  **Publishing the image to Docker Hub (optional)**
+
+The image can be uploaded to Docker Hub to make it available to others. Log in from the terminal using the command:  
 docker login
 
 Tag the image:
-
+```bash
 docker tag your-app-name your-dockerhub-username/your-app-name
-
+```
 Push the image to Docker Hub:
-
+```bash
 docker push your-dockerhub-username/your-app-name
-
-9. ## **Summary Chapter 1**
+```
+### 1.9 **Summary Chapter 1**
 
 * Prepare the files and create a Dockerfile.  
 * Use a suitable base image for application.  
@@ -112,54 +123,71 @@ docker push your-dockerhub-username/your-app-name
 * Run the app in a container.  
 * Optionally publish to Docker Hub.
 
-2. # **Build multi-platform docker image (to enable services execution on Edge architecture)**
+ ## 2 **Build multi-platform docker image (to enable services execution on Edge architecture)**
 
 Creating Docker images that support both ARM and AMD (x86\_64) platforms requires a few steps to ensure compatibility across architectures. Using Docker Buildx, it is possible to create multi-architecture images that work on both ARM devices (like Raspberry Pi) and AMD/Intel processors.  
 **Following the steps to create separate Docker images for ARM and AMD.**
 
-1. ## **Create a Dockerfile**
+### 2.1  **Create a Dockerfile**
 
 First, it  needs a common Dockerfile that defines the application. This file should be written to be architecture-agnostic, without depending on a specific architecture. (See the example in the previous paragraph) This Dockerfile works on both ARM and AMD architectures, as long as the base image supports both architectures.
 
-1. ### **Build the image separately for each architecture**
+### 2.2  **Build the image separately for each architecture**
 
-##### **A. For AMD architecture (x86\_64):**
+ **A. For AMD architecture (x86\_64):**
 
 Working on an AMD machine, simply build the image with the standard command:  
-docker build \-t your-app-name:amd64 .  
+```bash
+docker build \-t your-app-name:amd64 .
+``` 
 Working on an ARM machine and want to force the build for AMD, specify the platform:  
+```bash
 docker build \--platform linux/amd64 \-t your-app-name:amd64 .
+```
 
-##### **B. For ARM architecture (arm64):**
+ **B. For ARM architecture (arm64):**
 
 Using an ARM machine or want to build for ARM: Build the image for ARM:  
+```
 docker build \--platform linux/arm64 \-t your-app-name:arm64 .
+```
 
-2. ### **Use Docker Buildx to build multi-architecture images simultaneously**
+### 2.3  **Use Docker Buildx to build multi-architecture images simultaneously**
 
-Docker Buildx is a Docker extension that allows to build images for multiple platforms at the same time. This is useful for creating multi-architecture images that can run on both ARM and AMD.
+Docker Buildx is a Docker extension that allows you to build images for multiple platforms at the same time. 
+This is useful for creating multi-architecture images that can run on both ARM and AMD.
 
-##### **A. Enable Docker Buildx**
+ **A. Enable Docker Buildx**
 
-Docker Buildx is included in Docker Desktop and Docker for Linux, but it may need to be activated. To check if Buildx is active, run:  
-docker buildx version  
+Docker Buildx is included in Docker Desktop and Docker for Linux, but it may need to be activated. To check if Buildx is active, run:
+```bash
+docker buildx version
+```
 With Docker Desktop or an updated Docker on Linux, Buildx will already be enabled. Otherwise, follow the installation instructions.
 
-##### **B. Create and use a multi-architecture builder**
+ **B. Create and use a multi-architecture builder**
 
-Create a new builder that supports multi-architecture builds:  
-docker buildx create \--name mybuilder \--use  
+Create a new builder that supports multi-architecture builds: 
+```bash
+docker buildx create \--name mybuilder \--use
+```
 Start the builder:  
-docker buildx ls  
+```bash
+docker buildx ls
+```
 Verify the platforms supported by the builder:  
-docker buildx ls  
+```bash
+docker buildx ls
+```
 This will show the platforms that the builder currently supports.
 
-##### **C. Build the multi-architecture image**
+**C. Build the multi-architecture image**
 
 Now that Buildx is set up, build the image for multiple architectures simultaneously.  
-Run the `docker buildx build` command with the desired platforms:  
+Run the `docker buildx build` command with the desired platforms: 
+```
 docker buildx build \--platform linux/amd64,linux/arm64 \-t your-username/your-app-name:latest \--push .
+```
 
 * **\--platform linux/amd64,linux/arm64**: Specifies the platforms desired to build the image for.  
 * **\-t your-username/your-app-name**  
@@ -167,28 +195,32 @@ docker buildx build \--platform linux/amd64,linux/arm64 \-t your-username/your-a
 * **\--push**: This directly uploads the image to a Docker registry (e.g., Docker Hub).
 
 To build the image locally without pushing it to a registry, omit the **\--push** option:  
-docker buildx build \--platform linux/amd64,linux/arm64 \-t your-username/your-app-name:latest \--output type=docker .  
-This command will allow to have the multi-architecture image available locally.
+```bash
+docker buildx build \--platform linux/amd64,linux/arm64 \-t your-username/your-app-name:latest \--output type=docker .
+```
+This command will allow the multi-architecture image available locally.
 
-##### **D. Verify the multi-architecture image**
+**D. Verify the multi-architecture image**
 
 Once the image is built and pushed to Docker Hub or a private registry, verify that the image supports multiple architectures with the following command:  
-docker buildx imagetools inspect your-username/your-app-name:latest  
+```bash
+docker buildx imagetools inspect your-username/your-app-name:latest
+```
 This command will display the different architectures supported by the image (something like  linux/amd64 and linux/arm64).
 
-2. ## **Running the image on different platforms**
+### 2.4  **Running the image on different platforms**
 
 With a multi-architecture Docker image available on Docker Hub or another registry, It is possible to run the container on different platforms.
 
-##### **A. On an ARM device (e.g., Raspberry Pi):**
-
+**A. On an ARM device (e.g., Raspberry Pi):**
+```bash
 docker run your-username/your-app-name:latest
-
-##### **B. On an AMD machine (e.g., a laptop or x86\_64 server):**
-
+```
+ **B. On an AMD machine (e.g., a laptop or x86\_64 server):**
+```bash
 docker run your-username/your-app-name:latest
-
-3. ## **Summary of steps with Docker Buildx:**
+```
+### 2.5  **Summary of steps with Docker Buildx:**
 
 * Create an architecture-agnostic Dockerfile.  
 * Enable Buildx with the `docker buildx create` command.  
