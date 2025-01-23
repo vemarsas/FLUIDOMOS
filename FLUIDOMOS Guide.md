@@ -54,13 +54,13 @@ cat /var/lib/rancher/k3s/server/node-token
 ```
 result 
 ```bash
-K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcf4d5f4758::server:dc37106222de489c00e4457d73e94034
+K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcOBSCURED::server:dc37106222de489c00e4457d73e9OBSCURED
 ```
 The control plane token must be used for adding nodes to the Consumer cluster
 
 #### 2.2 Setup cworker1-fluidomos
 ```bash
-curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.0.131:6443 K3S\_NODE\_NAME=cworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcf4d5f4758::server:dc37106222de489c00e4457d73e94034 sh -
+curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.0.131:6443 K3S\_NODE\_NAME=cworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcOBSCURED::server:dc37106222de489c00e4457d73e9OBSCURED sh -
 ```
 #### 2.3 Setup **cedge1-fluidomos**
 Modify the file 
@@ -73,7 +73,7 @@ console=serial0,115200 console=tty1 root=PARTUUID=f83099fb-02 rootfstype=ext4 fs
 ```
 then exec 
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent" K3S_URL=https://91.121.49.150:6443 K3S_NODE_NAME=cedge1-fluidomos INSTALL_K3S_VERSION=v1.24.17+k3s1 K3S_TOKEN=K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcf4d5f4758::server:dc37106222de489c00e4457d73e94034 sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent" K3S_URL=https://91.121.49.150:6443 K3S_NODE_NAME=cedge1-fluidomos INSTALL_K3S_VERSION=v1.24.17+k3s1 K3S_TOKEN=K10671656dd98b4604a78fbea80ccbd5a7ca4695fe2372b70b98bb10dcOBSCURED::server:dc37106222de489c00e4457d73e9OBSCURED sh -
 ```
 
 #### 2.4 Setting up  provider1-fluidomos
@@ -86,13 +86,13 @@ cat /var/lib/rancher/k3s/server/node-token
 ```
 result
 ```bash 
-K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aad4780d17::server:b2c73c0e85cc48a8dafe8f8a226252f0
+K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aadOBSCURED::server:b2c73c0e85cc48a8dafe8f8a2262OBSCURED
 ```
 The control plane token must be used for adding nodes to the Provider cluster
 
 #### 2.5 Setting up  pworker1-fluidomos
 ```bash
-curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.36.163:6443 K3S\_NODE\_NAME=pworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aad4780d17::server:b2c73c0e85cc48a8dafe8f8a226252f0 sh -
+curl -sfL https://get.k3s.io | INSTALL\_K3S\_EXEC="agent" K3S\_URL=https://10.255.36.163:6443 K3S\_NODE\_NAME=pworker1-fluidomos INSTALL\_K3S\_VERSION=v1.24.17+k3s1 K3S\_TOKEN=K102d9ec76ba1f35bbc9c763739caa01fb6b78b25f7f3af42cbfa57e9aadOBSCURED::server:b2c73c0e85cc48a8dafe8f8a2262OBSCURED sh -
 ```
 ### 3 Installing Liqoctl CLI 
 On both **consumer1-fluidomos** and **provider1-fluidomos** type:
