@@ -117,7 +117,7 @@ wget [https://github.com/fluidos-project/node/archive/refs/tags/v0.0.5.zip](http
 unzip v0.0.5.zip  
 mv node-0.0.5 node
 ```
-#### 4.2 Label all node of Consumer cluster 
+#### 4.2 Label all nodes of the Consumer cluster 
 
 On **consumer1-fluidomos**
 ```bash
@@ -187,7 +187,7 @@ liqoctl install k3s --cluster-name fluids-provider \\
 ```
 
 #### 4.7 Check the installation status of fluidos and liquo
-To check installation status use the following coomands:
+To check installation status use the following commands:
 
 ```bash
 kubectl get pods -A
@@ -216,7 +216,7 @@ To check:
 kubectl get solver -n fluidos
 ```
 ### 6 Check FLUIDOS peering
-Finally a one-way peering from consumer to provider is established
+Finally, a one-way peering from consumer to provider is established
 To check  on consumer type:
 ```bash 
 root@consumer:~# export KUBECONFIG=/etc/rancher/k3s/k3s.yaml 
@@ -286,7 +286,7 @@ liqoctl status peer
 ```
 ### 7 FLUIDOMOS namespaces Configuration and Setup
 
-On consumer we create two namaspace for the FLUIDOMOS project. The namespace definition are in the following YAML file located in the project repository:
+On consumer, we create two namespace for the FLUIDOMOS project. The namespace definitions are in the following YAML file located in the project repository:
 
 **namespace-fluidomos-datacenter.yam**
 ```yaml
@@ -326,7 +326,7 @@ secret/regcred created
 root@consumer1-fluidomos:~/delis# kubectl create secret docker-registry regcred --namespace fluidomos-edge --docker-server=registry.vemarsas.it --docker-username= USER --docker-password=PASSWORD --docker-email=monitoraggio@vemarsas.it 
 secret/regcred created
 ```
-> To obatin the USER and PASSWORD values contact the FLUIDOMOS Project Manager.
+> To obtain the USER and PASSWORD values contact the FLUIDOMOS Project Manager.
 
 ### 9 Delis Deployment
 To install DELIS apply the following deployment in the consumer. All the YAML file are located in the project repository
@@ -341,7 +341,7 @@ To install DELIS apply the following deployment in the consumer. All the YAML fi
  - service_wc.yaml
  - 
 ### 10 Offloading
-To using FLUIDOS offload, on the consumer typ ;
+To use FLUIDOS offload, on the consumer typE;
 ```bash
 root@consumer1-fluidomos:~/delis# export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 root@consumer1-fluidomos:~/delis# liqoctl offload namespace fluidomos-datacenter
