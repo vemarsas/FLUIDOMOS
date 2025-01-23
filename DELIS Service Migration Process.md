@@ -230,33 +230,43 @@ docker run your-username/your-app-name:latest
 
 With this approach, it is possible to create a single Docker image that works on both ARM and AMD platforms, optimizing application deployment across a wide range of devices.
 
-3. # **Migrating  To Kubernetes**
+## 3 **Migrating  To Kubernetes**
 
 Migrating a Docker image for use in a Kubernetes environment requires several steps to integrate the image into a Kubernetes cluster. Below is a step-by-step guide on how to perform the migration.
 
-1. ## **Push the Docker image to a registry**
+### 3.1 **Push the Docker image to a registry**
 
 For Kubernetes to access the Docker image, it must be uploaded to a container registry (such as Docker Hub or a private registry like registry.vemarsas.it).
 
 ##### **A. Using Docker Hub:**
 
 If needed, log in to Docker Hub:  
-docker login  
+```bash
+docker login
+```
 Then tag the image:  
-docker tag your-app-name your-dockerhub-username/your-app-name:v1  
+```bash
+docker tag your-app-name your-dockerhub-username/your-app-name:v1
+``` 
 Finally, push the image to Docker Hub:  
+```bash
 docker push your-dockerhub-username/your-app-name:v1
+```
 
 ##### **B. Using a private registry:**
 
-Within Kubernetes, the repository of usable Docker images is the public Docker Hub. To use our private registry containing the **Delis** project images prepared for Kubernetes, it needs to integrate a secret into Kubernetes to be specified during image deployment. The following command was used to work with the private registry (**registry.vemarsas.it**) that contains the images:  
-kubectl create secret docker-registry regcred \--docker-server=registry.vemarsas.it \--docker-username=username \--docker-password=password \--docker-email=monitoraggio@vemarsas.it  
+Within Kubernetes, the repository of usable Docker images is the public Docker Hub. To use our private registry containing the **Delis** project images prepared for Kubernetes, it needs to integrate a secret into Kubernetes to be specified during image deployment. The following command was used to work with the private registry (**registry.vemarsas.it**) that contains the images (the_username and the_password are placeholder) :  
+```bash
+kubectl create secret docker-registry regcred \--docker-server=registry.vemarsas.it \--docker-username=the_username \--docker-password=the_password \--docker-email=monitoraggio@vemarsas.it  
+```
 During deployment, add the following lines to the **yaml** files:  
+```yaml
 imagePullSecrets:  
-  \- name: regcred  
+  name: regcred
+```
 The `kubectl` command to create the secret only needs to be run once within the control plane of the consumer cluster.
 
-2. ## **Preparing the Kubernetes configuration files**
+### 3.2 **Preparing the Kubernetes configuration files**
 
    Once the image is uploaded to a registry, it needs to create YAML manifests to manage the deployment of the application on Kubernetes. The essential components are:  
 * **Deployment**: Defines the number of application replicas and the Docker image to use.  
@@ -313,7 +323,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
 * **port**: The port accessible from outside.  
 * **targetPort**: The port inside the container (as in the Dockerfile).
 
-3. ## **Deploying to the Kubernetes cluster**
+### 3.3 **Deploying to the Kubernetes cluster**
 
    Once the **deployment.yaml** and **service.yaml** files are created, it is ready to deploy the application to the Kubernetes cluster.
 
@@ -328,7 +338,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
    kubectl apply \-f deployment.yaml  
    kubectl apply \-f service.yaml
 
-4. ## **Checking the Deployment status**
+### 3.4 **Checking the Deployment status**
 
    To check if the deployment was successful and if the pods are running correctly, use the following commands:
 
@@ -339,14 +349,14 @@ The `kubectl` command to create the secret only needs to be run once within the 
 
    kubectl get services
 
-5. ## **Accessing the application**
+### 3.5 **Accessing the application**
 
    If a **LoadBalancer** was used, the service will create a public IP address that can be used to access  application. If using **NodePort** to test locally with **Minikube** or a local cluster, it is possible to access the app through the cluster node’s IP and the specified port.  
    For example, to test on Minikube, it is possible to obtain the IP with:
 
    minikube service your-app-name-service \--url
 
-6. ## **Summary of steps:**
+### 3.6 **Summary of steps:**
 
 * Push the Docker image to Docker Hub or a private registry.  
 * Create the YAML manifests for the Deployment and the Service.  
@@ -354,7 +364,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
 * Verify the status of the pods and the service.  
 * Access the application through the Kubernetes service IP.
 
-4. # **VEMARSAS Repository**
+## 4 **VEMARSAS Repository**
 
 To use our private repository  containing the **Delis** project images, it is possible to reach it at the following link 
 
