@@ -275,7 +275,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
   ##### **A. Create the Deployment**
 
   Create a YAML file, for example, **deployment.yaml**, with the following content:
-
+```yaml
   apiVersion: apps/v1  
   kind: Deployment  
   metadata:  
@@ -295,7 +295,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
           image: your-dockerhub-username/your-app-name:v1  
           ports:  
           \- containerPort: 3000  \# Change if app uses a different port
-
+```
   Explanation:  
 * **replicas**: Specifies how many instances of the app intended to deploy.  
 * **image**: The Docker image uploaded to the registry.  
@@ -304,7 +304,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
   ##### **B. Create the Service**
 
   The Service maps the Kubernetes cluster’s ports to those exposed by the application. Create a file called **service.yaml** with this content:
-
+```yaml
   apiVersion: v1  
   kind: Service  
   metadata:  
@@ -316,7 +316,7 @@ The `kubectl` command to create the secret only needs to be run once within the 
       targetPort: 3000  \# Port inside the container  
     selector:  
       app: your-app-name
-
+```
     
   Explanation:  
 * **type: LoadBalancer**: Distributes external traffic to the container. Use **NodePort** for local or test clusters.  
@@ -327,36 +327,31 @@ The `kubectl` command to create the secret only needs to be run once within the 
 
    Once the **deployment.yaml** and **service.yaml** files are created, it is ready to deploy the application to the Kubernetes cluster.
 
-   ##### **A. Connect to the Kubernetes cluster**
+    **A. Connect to the Kubernetes cluster**
 
    Ensure it is connected to the correct Kubernetes cluster.
 
-   ##### **B. Apply the Deployment and the Service**
+    **B. Apply the Deployment and the Service**
 
    Once connected to the cluster, apply the YAML manifests using the `kubectl` command:
-
+```bash
    kubectl apply \-f deployment.yaml  
    kubectl apply \-f service.yaml
-
+```
 ### 3.4 **Checking the Deployment status**
 
    To check if the deployment was successful and if the pods are running correctly, use the following commands:
-
+```bash
    kubectl get deployments  
    kubectl get pods
+```
 
    To verify the service and obtain the public IP address (if using a LoadBalancer type service):
-
+```bash
    kubectl get services
+```
 
-### 3.5 **Accessing the application**
-
-   If a **LoadBalancer** was used, the service will create a public IP address that can be used to access  application. If using **NodePort** to test locally with **Minikube** or a local cluster, it is possible to access the app through the cluster node’s IP and the specified port.  
-   For example, to test on Minikube, it is possible to obtain the IP with:
-
-   minikube service your-app-name-service \--url
-
-### 3.6 **Summary of steps:**
+### 3.5 **Summary of steps:**
 
 * Push the Docker image to Docker Hub or a private registry.  
 * Create the YAML manifests for the Deployment and the Service.  
@@ -372,7 +367,7 @@ To use our private repository  containing the **Delis** project images, it is po
 
 This registry contains the Delis services images for Fluidomos:
 
-![][image1]  
+![Hello World]([image1])
 ![][image2]![][image3]![][image4]![][image5]![][image6]![][image7]![][image8]  
 ![][image9]
 
