@@ -24,3 +24,5 @@ Regarding the first point, the result deriving from the migration of DELIS (impl
 >In this repository you can find all the information and guides to  create the infrastructure of the FLUIDOMOS project, which uses 
 a K3S multi-cluster environment based on FLUIDOS and LIQO, as well as all the YAML distributions, will be used to implement DELIS execution in this environment.
 
+To see the FLUIDOMOS video presentation [click here](https://www.youtube.com/watch?v=A523EP0SRsc)
+
